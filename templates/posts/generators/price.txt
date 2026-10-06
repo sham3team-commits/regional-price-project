@@ -1,0 +1,7 @@
+{% load i18n formatting %}{% autoescape off %}{% now "d.m.Y" as today %}💰 **{{ product|local_name }}{% if product.brand %} {{ product.brand }}{% endif %}**{% if city %} — {{ city|local_name }}{% endif %}
+{% blocktranslate with unit=product.get_unit_display date=today %}1 {{ unit }} narxi, {{ date }} holatiga:{% endblocktranslate %}
+
+{% for row in rows %}{% if forloop.first %}🥇{% else %}{{ forloop.counter }}.{% endif %} {{ row.store.name }}{% if not city %} ({{ row.store.city|local_name }}){% endif %} — **{{ row.value|som }} {% translate "so'm" %}**{% if row.on_promo %} 🔥 ~~{{ row.entry.old_price|som }}~~{% endif %}
+{% endfor %}
+{% with cheapest=rows.0 %}✅ {% blocktranslate with store=cheapest.store.name price=cheapest.value|som %}Eng arzon: {{ store }} — {{ price }} so'm{% endblocktranslate %}{% endwith %}
+{% endautoescape %}

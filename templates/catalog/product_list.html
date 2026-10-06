@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Mahsulotlar" %}{% endblock %}
+{% block heading %}{% translate "Mahsulotlar" %}{% endblock %}
+{% block actions %}<a class="btn btn-primary" href="{% url 'catalog:product_create' %}">+ {% translate "Yangi mahsulot" %}</a>{% endblock %}
+{% block content %}
+<div class="card">
+  <form method="get" class="filters">
+    <input type="search" name="q" value="{{ filter_form.q.value|default:'' }}" placeholder="{% translate 'Nomi yoki brend...' %}" aria-label="{% translate 'Qidiruv' %}">
+    {{ filter_form.category }}
+    <button class="btn" type="submit">{% translate "Qidirish" %}</button>
+    {% if request.GET %}<a class="btn" href="{% url 'catalog:product_list' %}">{% translate "Tozalash" %}</a>{% endif %}
+  </form>
+  {% if object_list %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>ID</th><th>{% translate "Nomi" %}</th><th>{% translate "Brend" %}</th><th>{% translate "Kategoriya" %}</th><th>{% translate "Birlik" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for product in object_list %}
+      <tr>
+        <td class="num muted">{{ product.pk }}</td>
+        <td><a href="{% url 'catalog:product_detail' product.pk %}">{{ product.local_name }}</a></td>
+        <td>{{ product.brand|default:"—" }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.get_unit_display }}</td>
+        <td class="num"><a class="btn btn-sm" href="{% url 'catalog:product_update' product.pk %}">{% translate "Tahrirlash" %}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% include "includes/pagination.html" %}
+  {% else %}<p class="empty">{% translate "Mahsulot topilmadi." %}</p>{% endif %}
+</div>
+{% endblock %}

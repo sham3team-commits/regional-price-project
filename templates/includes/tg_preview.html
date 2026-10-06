@@ -1,0 +1,19 @@
+{% load i18n formatting %}
+<div class="tg-chat">
+  <div class="tg-channel-head"><span class="tg-avatar">FN</span>{% translate "Farg'ona Narx kanali" %}</div>
+  <div class="tg-bubble">
+    {% if preview.has_photo %}
+      <div class="tg-photo">{% if photo %}<img src="{{ photo.url }}" alt="">{% else %}📷 {% translate "Rasm" %}{% endif %}</div>
+    {% endif %}
+    <div class="tg-text">{{ preview.html|highlight_hashtags }}</div>
+    <div class="tg-meta"><span>👁 —</span><span>{% if scheduled_at %}{{ scheduled_at|date:"H:i" }}{% else %}{% now "H:i" %}{% endif %}</span></div>
+    {% if comments_enabled %}
+      <div class="tg-comments">💬 {% translate "Izoh qoldirish" %}</div>
+    {% else %}
+      <div class="tg-comments off">{% translate "Izohlar o'chirilgan" %}</div>
+    {% endif %}
+  </div>
+  <div class="tg-counter{% if preview.length > preview.limit %} over{% endif %}">
+    {{ preview.length }} / {{ preview.limit }} {% if preview.has_photo %}{% translate "(rasm izohi)" %}{% else %}{% translate "(matn)" %}{% endif %}
+  </div>
+</div>

@@ -1,0 +1,72 @@
+{% load static i18n %}<!doctype html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% translate "Narxlar va aksiyalar" %}{% endblock %} · Farg'ona Narx</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+{% if user.is_authenticated %}
+<div class="layout">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'dashboard' %}">
+      <span class="brand-mark">₍s₎</span>
+      <span>Farg'ona Narx</span>
+    </a>
+    <a class="btn btn-accent btn-block" href="{% url 'catalog:price_entry' %}">+ {% translate "Narx kiritish" %}</a>
+    {% with path=request.path %}
+    <nav class="nav">
+      <a href="{% url 'dashboard' %}" class="{% if path == '/' %}active{% endif %}">{% translate "Bosh sahifa" %}</a>
+      <a href="{% url 'catalog:product_list' %}" class="{% if '/products/' in path %}active{% endif %}">{% translate "Mahsulotlar" %}</a>
+      <a href="{% url 'locations:store_list' %}" class="{% if '/stores/' in path %}active{% endif %}">{% translate "Do'konlar" %}</a>
+      <a href="{% url 'baskets:basket_list' %}" class="{% if '/baskets/' in path %}active{% endif %}">{% translate "Savatlar" %}</a>
+      <a href="{% url 'posts:post_list' %}" class="{% if '/posts/' in path and '/generate/' not in path %}active{% endif %}">{% translate "Postlar" %}</a>
+      <a href="{% url 'posts:generators' %}" class="{% if '/generate/' in path %}active{% endif %}">{% translate "Post generatorlari" %}</a>
+      {% if user.is_superuser %}<a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>{% endif %}
+    </nav>
+    {% endwith %}
+    <div class="sidebar-foot">
+      <form action="{% url 'set_language' %}" method="post" class="lang-switch">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        {% get_available_languages as LANGUAGES %}
+        {% for code, name in LANGUAGES %}
+          <button type="submit" name="language" value="{{ code }}" class="{% if code == LANGUAGE_CODE %}active{% endif %}">{{ code|upper }}</button>
+        {% endfor %}
+      </form>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="link-button">{% translate "Chiqish" %} ({{ user.get_username }})</button>
+      </form>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="{% translate 'Menyu' %}">☰</label>
+      <h1>{% block heading %}{% endblock %}</h1>
+      <div class="topbar-actions">{% block actions %}{% endblock %}</div>
+    </header>
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}<div class="message message-{{ message.tags }}">{{ message }}</div>{% endfor %}
+      </div>
+    {% endif %}
+    <main class="content">{% block content %}{% endblock %}</main>
+  </div>
+</div>
+{% else %}
+  {% block anonymous %}{% endblock %}
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.complete.min.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

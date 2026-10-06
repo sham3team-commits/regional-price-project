@@ -1,0 +1,836 @@
+# Russian translation of the Regional Price & Deals operator UI and post templates.
+msgid ""
+msgstr ""
+"Project-Id-Version: Regional Price & Deals\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 10:09+0500\n"
+"PO-Revision-Date: 2026-10-05 10:00+0500\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Shahar"
+msgstr "Город"
+
+msgid "Barcha shaharlar"
+msgstr "Все города"
+
+msgid "nomi"
+msgstr "название"
+
+msgid "tavsif"
+msgstr "описание"
+
+msgid "savat"
+msgstr "корзина"
+
+msgid "savatlar"
+msgstr "корзины"
+
+#| msgid "mahsulot"
+msgid "mahsulot"
+msgid_plural "mahsulot"
+msgstr[0] "товар"
+msgstr[1] "товара"
+msgstr[2] "товаров"
+msgstr[3] "товаров"
+
+msgid "miqdor"
+msgstr "количество"
+
+msgid "savat elementi"
+msgstr "позиция корзины"
+
+msgid "savat elementlari"
+msgstr "позиции корзины"
+
+msgid "Savat saqlandi."
+msgstr "Корзина сохранена."
+
+msgid "Rasm hajmi 10 MB dan oshmasligi kerak."
+msgstr "Размер изображения не должен превышать 10 МБ."
+
+msgid "Qidiruv"
+msgstr "Поиск"
+
+msgid "Kategoriya"
+msgstr "Категория"
+
+msgid "nomi (ruscha)"
+msgstr "название (на русском)"
+
+msgid "kategoriya"
+msgstr "категория"
+
+msgid "kategoriyalar"
+msgstr "категории"
+
+msgid "kg"
+msgstr "кг"
+
+msgid "litr"
+msgstr "л"
+
+msgid "dona"
+msgstr "шт."
+
+msgid "qadoq"
+msgstr "уп."
+
+msgid "o'lchov birligi"
+msgstr "единица измерения"
+
+msgid "brend"
+msgstr "бренд"
+
+msgid "rasm"
+msgstr "фото"
+
+msgid "mahsulotlar"
+msgstr "товары"
+
+msgid "do'kon"
+msgstr "магазин"
+
+msgid "narx (so'm)"
+msgstr "цена (сум)"
+
+msgid "sana"
+msgstr "дата"
+
+msgid "aksiya"
+msgstr "акция"
+
+msgid "eski narx (so'm)"
+msgstr "старая цена (сум)"
+
+msgid "aksiya boshlanishi"
+msgstr "начало акции"
+
+msgid "aksiya tugashi"
+msgstr "конец акции"
+
+msgid "narx"
+msgstr "цена"
+
+msgid "narxlar"
+msgstr "цены"
+
+msgid "Narx noldan katta bo'lishi kerak."
+msgstr "Цена должна быть больше нуля."
+
+msgid "Aksiya uchun eski narxni kiriting."
+msgstr "Для акции укажите старую цену."
+
+msgid "Eski narx aksiya narxidan katta bo'lishi kerak."
+msgstr "Старая цена должна быть больше акционной."
+
+msgid "Aksiya tugash sanasi boshlanishidan oldin bo'lishi mumkin emas."
+msgstr "Дата окончания акции не может быть раньше даты начала."
+
+msgid "Eski narx va aksiya sanalari faqat aksiya belgilanganda to'ldiriladi."
+msgstr "Старая цена и даты акции заполняются, только если отмечена акция."
+
+msgid "Mahsulot saqlandi."
+msgstr "Товар сохранён."
+
+#, python-format
+msgid "Saqlandi: %(product)s — %(store)s — %(price)s so'm"
+msgstr "Сохранено: %(product)s — %(store)s — %(price)s сум"
+
+msgid "O'zbekcha"
+msgstr "Узбекский"
+
+msgid "Ruscha"
+msgstr "Русский"
+
+msgid "Faqat kichik lotin harflari, raqamlar va _ belgisi (# belgisisiz)."
+msgstr "Только строчные латинские буквы, цифры и знак _ (без #)."
+
+msgid "heshteg"
+msgstr "хештег"
+
+msgid "shahar"
+msgstr "город"
+
+msgid "shaharlar"
+msgstr "города"
+
+msgid "manzil"
+msgstr "адрес"
+
+msgid "xarita havolasi"
+msgstr "ссылка на карту"
+
+msgid "kenglik"
+msgstr "широта"
+
+msgid "uzunlik"
+msgstr "долгота"
+
+msgid "ochilgan sana"
+msgstr "дата открытия"
+
+msgid "yangi do'kon"
+msgstr "новый магазин"
+
+msgid "faol"
+msgstr "активен"
+
+msgid "do'konlar"
+msgstr "магазины"
+
+msgid "Do'kon saqlandi."
+msgstr "Магазин сохранён."
+
+msgid ""
+"**qalin** va ~~o'chirilgan~~ formatlash mumkin. Heshteglar avtomatik "
+"qo'shiladi."
+msgstr ""
+"Можно использовать **жирный** и ~~зачёркнутый~~ текст. Хештеги добавляются "
+"автоматически."
+
+msgid "Bo'sh joy yoki vergul bilan ajrating, masalan: #shakar #yangi_narx"
+msgstr "Через пробел или запятую, например: #shakar #yangi_narx"
+
+msgid "Toshkent vaqti bilan."
+msgstr "По ташкентскому времени."
+
+msgid "Heshteg harf yoki pastki chiziqni o'z ichiga olishi kerak."
+msgstr "Хештег должен содержать букву или знак подчёркивания."
+
+msgid "Izohlar yopilgan, ularni qayta yoqib bo'lmaydi."
+msgstr "Комментарии закрыты, включить их снова нельзя."
+
+msgid "Rejalashtirish uchun vaqtni kiriting."
+msgstr "Укажите время для планирования."
+
+#, python-format
+msgid "Xabar juda uzun: %(length)s / %(limit)s belgi (heshteglar bilan)."
+msgstr ""
+"Сообщение слишком длинное: %(length)s / %(limit)s символов (с хештегами)."
+
+msgid "Chop etilgan post uchun izohlarni faqat o'chirish mumkin."
+msgstr "У опубликованного поста комментарии можно только выключить."
+
+msgid "Til"
+msgstr "Язык"
+
+msgid "yoki do'kon"
+msgstr "или магазин"
+
+msgid "Mahsulot"
+msgstr "Товар"
+
+msgid "Savat"
+msgstr "Корзина"
+
+msgid "Yangi do'kon"
+msgstr "Новый магазин"
+
+#, python-format
+msgid "“%(code)s” rubrikasi topilmadi."
+msgstr "Рубрика «%(code)s» не найдена."
+
+msgid "Tanlangan joyda faol aksiyalar yo'q."
+msgstr "В выбранном месте нет активных акций."
+
+msgid "Bu mahsulot uchun narxlar kiritilmagan."
+msgstr "Для этого товара цены не введены."
+
+msgid "Savat bo'sh yoki savatdagi mahsulotlar uchun narxlar yo'q."
+msgstr "Корзина пуста или для её товаров нет цен."
+
+msgid "Bu do'kon “yangi” deb belgilanmagan."
+msgstr "Этот магазин не отмечен как «новый»."
+
+msgid "kod"
+msgstr "код"
+
+msgid "rubrika"
+msgstr "рубрика"
+
+msgid "rubrikalar"
+msgstr "рубрики"
+
+msgid "Qoralama"
+msgstr "Черновик"
+
+msgid "Rejalashtirilgan"
+msgstr "Запланирован"
+
+msgid "Yuborilmoqda"
+msgstr "Отправляется"
+
+msgid "Chop etilgan"
+msgstr "Опубликован"
+
+msgid "Xato"
+msgstr "Ошибка"
+
+msgid "til"
+msgstr "язык"
+
+msgid "matn"
+msgstr "текст"
+
+msgid "qo'shimcha heshteglar"
+msgstr "дополнительные хештеги"
+
+msgid "izohlar yoqilgan"
+msgstr "комментарии включены"
+
+msgid "chop etish vaqti"
+msgstr "время публикации"
+
+msgid "holat"
+msgstr "статус"
+
+msgid "xato matni"
+msgstr "текст ошибки"
+
+msgid "post"
+msgstr "пост"
+
+msgid "postlar"
+msgstr "посты"
+
+#, python-format
+msgid "Matn juda uzun: %(length)s / %(limit)s belgi."
+msgstr "Текст слишком длинный: %(length)s / %(limit)s символов."
+
+msgid ""
+"Yuborish paytida worker to'xtadi, natija noma'lum. Kanalni tekshiring va "
+"kerak bo'lsa qayta rejalashtiring."
+msgstr ""
+"Воркер остановился во время отправки, результат неизвестен. Проверьте канал "
+"и при необходимости запланируйте снова."
+
+msgid ""
+"Post hozir yuborilmoqda yoki allaqachon chop etilgan, o'zgartirib bo'lmaydi."
+msgstr "Пост сейчас отправляется или уже опубликован, изменить его нельзя."
+
+msgid "Post rejalashtirildi."
+msgstr "Пост запланирован."
+
+msgid "Qoralama saqlandi."
+msgstr "Черновик сохранён."
+
+msgid "Izohlar sozlamasi saqlandi."
+msgstr "Настройка комментариев сохранена."
+
+msgid "TELEGRAM_BOT_TOKEN yoki TELEGRAM_TEST_CHAT_ID sozlanmagan."
+msgstr "TELEGRAM_BOT_TOKEN или TELEGRAM_TEST_CHAT_ID не настроены."
+
+#, python-format
+msgid "Test xabar yuborilmadi: %s"
+msgstr "Тестовое сообщение не отправлено: %s"
+
+msgid "Test xabar sizga yuborildi."
+msgstr "Тестовое сообщение отправлено вам."
+
+msgid "Qoralama yaratildi. Matnni tekshirib, rejalashtiring."
+msgstr "Черновик создан. Проверьте текст и запланируйте публикацию."
+
+#, python-format
+msgid ""
+"Natija noma'lum (%(error)s). Kanalni tekshiring, kerak bo'lsa qayta "
+"rejalashtiring."
+msgstr ""
+"Результат неизвестен (%(error)s). Проверьте канал и при необходимости "
+"запланируйте снова."
+
+#, python-format
+msgid "Xabarni tayyorlab bo'lmadi: %s"
+msgstr "Не удалось подготовить сообщение: %s"
+
+#, python-format
+msgid "Telegram cheklovi, %s soniyadan keyin qayta uriniladi."
+msgstr "Ограничение Telegram, повтор через %s секунд."
+
+#, python-format
+msgid "Rasm juda katta: %s"
+msgstr "Изображение слишком большое: %s"
+
+msgid "Narxlar va aksiyalar"
+msgstr "Цены и акции"
+
+msgid "Narx kiritish"
+msgstr "Ввод цены"
+
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+msgid "Mahsulotlar"
+msgstr "Товары"
+
+msgid "Do'konlar"
+msgstr "Магазины"
+
+msgid "Savatlar"
+msgstr "Корзины"
+
+msgid "Postlar"
+msgstr "Посты"
+
+msgid "Post generatorlari"
+msgstr "Генераторы постов"
+
+msgid "Admin panel"
+msgstr "Админ-панель"
+
+msgid "Chiqish"
+msgstr "Выйти"
+
+msgid "Menyu"
+msgstr "Меню"
+
+msgid "Tahrirlash"
+msgstr "Изменить"
+
+msgid "Post yaratish"
+msgstr "Создать пост"
+
+msgid "Ko'rsatish"
+msgstr "Показать"
+
+msgid "Do'kon"
+msgstr "Магазин"
+
+msgid "Jami"
+msgstr "Итого"
+
+msgid "Holat"
+msgstr "Статус"
+
+msgid "Tafsilotlar"
+msgstr "Подробнее"
+
+msgid "so'm"
+msgstr "сум"
+
+msgid "to'liq"
+msgstr "полная"
+
+#, python-format
+msgid "%(counter)s ta yo'q"
+msgid_plural "%(counter)s ta yo'q"
+msgstr[0] "нет %(counter)s товара"
+msgstr[1] "нет %(counter)s товаров"
+msgstr[2] "нет %(counter)s товаров"
+msgstr[3] "нет %(counter)s товаров"
+
+msgid ""
+"Narxi yo'q mahsulotlar jamiga qo'shilmaydi. To'liq savatli do'konlar "
+"birinchi ko'rsatiladi."
+msgstr ""
+"Товары без цены не входят в итог. Магазины с полной корзиной показываются "
+"первыми."
+
+msgid "Bu savat uchun narxlar topilmadi."
+msgstr "Для этой корзины цены не найдены."
+
+msgid "Savat tarkibi"
+msgstr "Состав корзины"
+
+msgid "Savatni tahrirlash"
+msgstr "Изменить корзину"
+
+msgid "Yangi savat"
+msgstr "Новая корзина"
+
+msgid "Miqdor"
+msgstr "Количество"
+
+msgid "O'chirish"
+msgstr "Удалить"
+
+msgid "Qator qo'shish"
+msgstr "Добавить строку"
+
+msgid "Saqlash va solishtirish"
+msgstr "Сохранить и сравнить"
+
+msgid "Bekor qilish"
+msgstr "Отмена"
+
+msgid "Nomi"
+msgstr "Название"
+
+msgid "Tavsif"
+msgstr "Описание"
+
+msgid "Solishtirish"
+msgstr "Сравнить"
+
+msgid "Hali savat yo'q."
+msgstr "Корзин пока нет."
+
+msgid "Saqlash va keyingisi"
+msgstr "Сохранить и следующий"
+
+msgid "Do'kon keyingi yozuv uchun saqlanib qoladi. Enter — saqlash."
+msgstr "Магазин сохраняется для следующей записи. Enter — сохранить."
+
+msgid "Bugun kiritilganlar"
+msgstr "Введено сегодня"
+
+msgid "Vaqt"
+msgstr "Время"
+
+msgid "Narx"
+msgstr "Цена"
+
+msgid "Bugun hali narx kiritilmagan."
+msgstr "Сегодня цены ещё не вводились."
+
+msgid "Oldingi narx"
+msgstr "Предыдущая цена"
+
+msgid "Bu do'konda oldingi narx yo'q."
+msgstr "В этом магазине предыдущей цены нет."
+
+msgid "Hozirgi narxlar"
+msgstr "Текущие цены"
+
+msgid "Sana"
+msgstr "Дата"
+
+msgid "Hali narx kiritilmagan."
+msgstr "Цены ещё не введены."
+
+msgid "Ma'lumot"
+msgstr "Информация"
+
+msgid "Birlik"
+msgstr "Единица"
+
+msgid "Narxlar tarixi"
+msgstr "История цен"
+
+msgid "Grafik uchun ma'lumot yo'q."
+msgstr "Нет данных для графика."
+
+msgid "Barcha yozuvlar"
+msgstr "Все записи"
+
+msgid "oxirgi 100 ta"
+msgstr "последние 100"
+
+msgid "Aksiya"
+msgstr "Акция"
+
+msgid "Kiritilgan"
+msgstr "Введено"
+
+msgid "Mahsulotni tahrirlash"
+msgstr "Изменить товар"
+
+msgid "Yangi mahsulot"
+msgstr "Новый товар"
+
+msgid "Saqlash"
+msgstr "Сохранить"
+
+msgid "Nomi yoki brend..."
+msgstr "Название или бренд..."
+
+msgid "Qidirish"
+msgstr "Найти"
+
+msgid "Tozalash"
+msgstr "Сбросить"
+
+msgid "Brend"
+msgstr "Бренд"
+
+msgid "Mahsulot topilmadi."
+msgstr "Товары не найдены."
+
+#| msgid "faol do'kon"
+msgid "faol do'kon"
+msgid_plural "faol do'kon"
+msgstr[0] "активный магазин"
+msgstr[1] "активных магазина"
+msgstr[2] "активных магазинов"
+msgstr[3] "активных магазинов"
+
+#| msgid "shu hafta kiritilgan narx"
+msgid "shu hafta kiritilgan narx"
+msgid_plural "shu hafta kiritilgan narx"
+msgstr[0] "цена введена на этой неделе"
+msgstr[1] "цены введено на этой неделе"
+msgstr[2] "цен введено на этой неделе"
+msgstr[3] "цен введено на этой неделе"
+
+msgid "Navbatdagi postlar"
+msgstr "Ближайшие посты"
+
+msgid "Rejalashtirilgan postlar yo'q."
+msgstr "Запланированных постов нет."
+
+msgid "Xato bilan tugagan postlar"
+msgstr "Посты с ошибками"
+
+msgid "Xatolar yo'q."
+msgstr "Ошибок нет."
+
+#, python-format
+msgid "Narxi bir haftada %(percent)s%% dan ko'p o'zgargan mahsulotlar"
+msgstr "Товары, цена которых за неделю изменилась более чем на %(percent)s%%"
+
+msgid "Hafta oldin"
+msgstr "Неделю назад"
+
+msgid "Hozir"
+msgstr "Сейчас"
+
+msgid "O'zgarish"
+msgstr "Изменение"
+
+msgid "Keskin narx o'zgarishlari yo'q."
+msgstr "Резких изменений цен нет."
+
+msgid "Oldingi"
+msgstr "Назад"
+
+#, python-format
+msgid "%(page)s / %(pages)s sahifa"
+msgstr "Страница %(page)s из %(pages)s"
+
+msgid "Keyingi"
+msgstr "Вперёд"
+
+msgid "Farg'ona Narx kanali"
+msgstr "Канал «Farg'ona Narx»"
+
+msgid "Rasm"
+msgstr "Фото"
+
+msgid "Izoh qoldirish"
+msgstr "Оставить комментарий"
+
+msgid "Izohlar o'chirilgan"
+msgstr "Комментарии отключены"
+
+msgid "(rasm izohi)"
+msgstr "(подпись к фото)"
+
+msgid "(matn)"
+msgstr "(текст)"
+
+msgid "Do'konni tahrirlash"
+msgstr "Изменить магазин"
+
+msgid "Hammasi"
+msgstr "Все"
+
+msgid "Manzil"
+msgstr "Адрес"
+
+msgid "Ochilgan"
+msgstr "Открыт"
+
+msgid "xarita"
+msgstr "карта"
+
+msgid "yopilgan"
+msgstr "закрыт"
+
+msgid "yangi"
+msgstr "новый"
+
+msgid "Do'kon topilmadi."
+msgstr "Магазины не найдены."
+
+msgid ""
+"Generator ma'lumotlardan qoralama post yaratadi. Keyin matnni tahrirlab, "
+"rejalashtirasiz. Obzor, maslahat va yangilik postlari qo'lda yoziladi."
+msgstr ""
+"Генератор создаёт черновик поста из данных. Затем вы редактируете текст и "
+"планируете публикацию. Обзоры, советы и новости пишутся вручную."
+
+msgid "Aksiyalar posti"
+msgstr "Пост об акциях"
+
+msgid "Tanlangan shahar yoki do'kondagi faol aksiyalar."
+msgstr "Активные акции в выбранном городе или магазине."
+
+msgid "Qoralama yaratish"
+msgstr "Создать черновик"
+
+msgid "Mahsulot narxlari posti"
+msgstr "Пост о ценах на товар"
+
+msgid "Bitta mahsulotning barcha do'konlardagi narxi, arzonidan boshlab."
+msgstr "Цены одного товара во всех магазинах, от самой низкой."
+
+msgid "Savat solishtirish posti"
+msgstr "Пост сравнения корзины"
+
+msgid "Savat qaysi do'konda eng arzon?"
+msgstr "В каком магазине корзина дешевле всего?"
+
+msgid "Yangi do'kon posti"
+msgstr "Пост о новом магазине"
+
+msgid "“Yangi” deb belgilangan do'kon haqida e'lon."
+msgstr "Объявление о магазине, отмеченном как «новый»."
+
+#, python-format
+msgid "“%(basket)s” %(city)sda qayerda arzon?"
+msgstr "Где дешевле «%(basket)s» в городе %(city)s?"
+
+#, python-format
+msgid "“%(basket)s” qayerda arzon?"
+msgstr "Где дешевле «%(basket)s»?"
+
+msgid "Savatda:"
+msgstr "В корзине:"
+
+msgid "Do'konlar reytingi:"
+msgstr "Рейтинг магазинов:"
+
+#, python-format
+msgid "%(counter)s ta mahsulot yo'q"
+msgid_plural "%(counter)s ta mahsulot yo'q"
+msgstr[0] "нет %(counter)s товара"
+msgstr[1] "нет %(counter)s товаров"
+msgstr[2] "нет %(counter)s товаров"
+msgstr[3] "нет %(counter)s товаров"
+
+#, python-format
+msgid "Eng arzon savat: %(store)s — %(total)s so'm"
+msgstr "Самая дешёвая корзина: %(store)s — %(total)s сум"
+
+msgid "Yangi do'kon ochildi!"
+msgstr "Открылся новый магазин!"
+
+#, python-format
+msgid "Ochilgan sana: %(date)s"
+msgstr "Дата открытия: %(date)s"
+
+msgid "Yangi do'kondagi narxlarni tez orada e'lon qilamiz!"
+msgstr "Скоро опубликуем цены в новом магазине!"
+
+#, python-format
+msgid "1 %(unit)s narxi, %(date)s holatiga:"
+msgstr "Цена за 1 %(unit)s на %(date)s:"
+
+#, python-format
+msgid "Eng arzon: %(store)s — %(price)s so'm"
+msgstr "Дешевле всего: %(store)s — %(price)s сум"
+
+#, python-format
+msgid "%(store)s do'konidagi aksiyalar"
+msgstr "Акции в магазине %(store)s"
+
+#, python-format
+msgid "%(city)sdagi aksiyalar"
+msgstr "Акции в городе %(city)s"
+
+msgid "Do'konlardagi aksiyalar"
+msgstr "Акции в магазинах"
+
+#, python-format
+msgid "%(date)s gacha"
+msgstr "до %(date)s"
+
+msgid "Aksiya muddati va qoldiqni do'konda tekshiring."
+msgstr "Сроки акции и наличие уточняйте в магазине."
+
+msgid "Post"
+msgstr "Пост"
+
+msgid "Yangi post"
+msgstr "Новый пост"
+
+msgid "Menga test yuborish"
+msgstr "Отправить тест мне"
+
+msgid "Chop etishda xato:"
+msgstr "Ошибка публикации:"
+
+msgid "Tuzatib, qayta rejalashtiring."
+msgstr "Исправьте и запланируйте снова."
+
+msgid "Ko'rib chiqish"
+msgstr "Предпросмотр"
+
+msgid "Qoralama sifatida saqlash"
+msgstr "Сохранить как черновик"
+
+msgid "Rejalashtirish"
+msgstr "Запланировать"
+
+msgid "Telegramda shunday ko'rinadi"
+msgstr "Так это будет выглядеть в Telegram"
+
+msgid "Yangi rasm saqlangandan keyin ko'rinadi."
+msgstr "Новое фото появится после сохранения."
+
+msgid "Matnni yozing va “Ko'rib chiqish” tugmasini bosing."
+msgstr "Напишите текст и нажмите «Предпросмотр»."
+
+msgid "Generatorlar"
+msgstr "Генераторы"
+
+msgid "Matn"
+msgstr "Текст"
+
+msgid "Rubrika"
+msgstr "Рубрика"
+
+msgid "Izohlar"
+msgstr "Комментарии"
+
+msgid "Postlar yo'q."
+msgstr "Постов нет."
+
+msgid "Telegram xabar ID"
+msgstr "ID сообщения в Telegram"
+
+msgid "Muhokama guruhidagi nusxa"
+msgstr "Копия в группе обсуждения"
+
+msgid "izohlar yopilgan"
+msgstr "комментарии закрыты"
+
+msgid ""
+"Izohlar yoqilgan. O'chirilsa, worker muhokama guruhidagi nusxani o'chiradi "
+"va izohlar butunlay yopiladi. Bu amalni qaytarib bo'lmaydi."
+msgstr ""
+"Комментарии включены. Если их выключить, воркер удалит копию в группе "
+"обсуждения и комментарии закроются навсегда. Это действие нельзя отменить."
+
+msgid "Izohlarni butunlay yopishni tasdiqlaysizmi?"
+msgstr "Закрыть комментарии навсегда?"
+
+msgid "Izohlarni o'chirish"
+msgstr "Выключить комментарии"
+
+msgid "Izohlar yopilgan."
+msgstr "Комментарии закрыты."
+
+msgid ""
+"Izohlar o'chirilgan; worker muhokama guruhidagi nusxani tez orada o'chiradi."
+msgstr "Комментарии выключены; воркер скоро удалит копию в группе обсуждения."
+
+msgid "Post hozir yuborilmoqda. Sahifani birozdan keyin yangilang."
+msgstr "Пост сейчас отправляется. Обновите страницу чуть позже."
+
+msgid "Kanaldagi ko'rinishi"
+msgstr "Как выглядит в канале"
+
+msgid "Kirish"
+msgstr "Войти"
+
+msgid "Operator paneliga kirish"
+msgstr "Вход в панель оператора"
+
+msgid "Siz allaqachon tizimga kirgansiz."
+msgstr "Вы уже вошли в систему."

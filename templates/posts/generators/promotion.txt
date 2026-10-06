@@ -1,0 +1,7 @@
+{% load i18n formatting %}{% autoescape off %}🔥 **{% if store %}{% blocktranslate with store=store.name %}{{ store }} do'konidagi aksiyalar{% endblocktranslate %}{% elif city %}{% blocktranslate with city=city|local_name %}{{ city }}dagi aksiyalar{% endblocktranslate %}{% else %}{% translate "Do'konlardagi aksiyalar" %}{% endif %}**
+
+{% for store, promos in groups %}🏪 **{{ store.name }}** — {{ store.address }}
+{% for promo in promos %}▫️ {{ promo.product|local_name }}{% if promo.product.brand %} ({{ promo.product.brand }}){% endif %}: ~~{{ promo.old_price|som }}~~ → **{{ promo.price|som }} {% translate "so'm" %}** ({{ promo.price|percent_change:promo.old_price }}%){% if promo.promo_ends %}, {% blocktranslate with date=promo.promo_ends|date:"d.m" %}{{ date }} gacha{% endblocktranslate %}{% endif %}
+{% endfor %}
+{% endfor %}{% translate "Aksiya muddati va qoldiqni do'konda tekshiring." %}
+{% endautoescape %}

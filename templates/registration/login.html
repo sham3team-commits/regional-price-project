@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Kirish" %}{% endblock %}
+{% block anonymous %}
+<div class="login-wrap">
+  <div class="card login-card">
+    <a class="brand" style="color:var(--text);margin-bottom:1rem"><span class="brand-mark">₍s₎</span><span>Farg'ona Narx</span></a>
+    <h2>{% translate "Operator paneliga kirish" %}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn btn-primary btn-block">{% translate "Kirish" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="card login-card">
+  <p>{% translate "Siz allaqachon tizimga kirgansiz." %} <a href="{% url 'dashboard' %}">{% translate "Bosh sahifa" %}</a></p>
+</div>
+{% endblock %}

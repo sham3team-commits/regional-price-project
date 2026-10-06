@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block heading %}{% if object %}{% translate "Mahsulotni tahrirlash" %}{% else %}{% translate "Yangi mahsulot" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:720px">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include "includes/form_fields.html" %}
+    <div class="btn-row">
+      <button type="submit" class="btn btn-primary">{% translate "Saqlash" %}</button>
+      <a class="btn" href="{% if object %}{% url 'catalog:product_detail' object.pk %}{% else %}{% url 'catalog:product_list' %}{% endif %}">{% translate "Bekor qilish" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

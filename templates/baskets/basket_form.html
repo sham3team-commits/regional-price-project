@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block heading %}{% if basket.pk %}{% translate "Savatni tahrirlash" %}{% else %}{% translate "Yangi savat" %}{% endif %}{% endblock %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <div class="card" style="max-width:860px">
+    {% include "includes/form_fields.html" %}
+  </div>
+  <div class="card" style="max-width:860px">
+    <h2>{% translate "Savat tarkibi" %}</h2>
+    {{ formset.management_form }}
+    {% if formset.non_form_errors %}<ul class="errorlist nonfield">{% for e in formset.non_form_errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    <table>
+      <thead><tr><th>{% translate "Mahsulot" %}</th><th style="width:160px">{% translate "Miqdor" %}</th><th style="width:90px">{% translate "O'chirish" %}</th></tr></thead>
+      <tbody id="item-rows">
+      {% for item_form in formset %}
+        <tr>
+          <td>{% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}{{ item_form.product }}{{ item_form.product.errors }}{{ item_form.non_field_errors }}</td>
+          <td>{{ item_form.quantity }}{{ item_form.quantity.errors }}</td>
+          <td>{% if item_form.instance.pk %}{{ item_form.DELETE }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <template id="empty-row">
+      <tr>
+        <td>{% for hidden in formset.empty_form.hidden_fields %}{{ hidden }}{% endfor %}{{ formset.empty_form.product }}</td>
+        <td>{{ formset.empty_form.quantity }}</td>
+        <td></td>
+      </tr>
+    </template>
+    <button type="button" class="btn btn-sm" id="add-row" style="margin-top:.75rem">+ {% translate "Qator qo'shish" %}</button>
+    <div class="btn-row">
+      <button type="submit" class="btn btn-primary">{% translate "Saqlash va solishtirish" %}</button>
+      <a class="btn" href="{% url 'baskets:basket_list' %}">{% translate "Bekor qilish" %}</a>
+    </div>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("add-row").addEventListener("click", () => {
+  const total = document.getElementById("id_{{ formset.prefix }}-TOTAL_FORMS");
+  const index = parseInt(total.value, 10);
+  const html = document.getElementById("empty-row").innerHTML.replace(/__prefix__/g, index);
+  const rows = document.getElementById("item-rows");
+  rows.insertAdjacentHTML("beforeend", html);
+  total.value = index + 1;
+  initTomSelect(rows.lastElementChild);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n formatting %}
+{% block heading %}{% translate "Bosh sahifa" %}{% endblock %}
+{% block actions %}
+  <a class="btn" href="{% url 'posts:generators' %}">{% translate "Post yaratish" %}</a>
+  <a class="btn btn-primary" href="{% url 'catalog:price_entry' %}">+ {% translate "Narx kiritish" %}</a>
+{% endblock %}
+{% block content %}
+<div class="grid grid-3">
+  <div class="card stat"><span class="stat-value">{{ product_count }}</span><span class="stat-label">{% blocktranslate count counter=product_count %}mahsulot{% plural %}mahsulot{% endblocktranslate %}</span></div>
+  <div class="card stat"><span class="stat-value">{{ store_count }}</span><span class="stat-label">{% blocktranslate count counter=store_count %}faol do'kon{% plural %}faol do'kon{% endblocktranslate %}</span></div>
+  <div class="card stat"><span class="stat-value">{{ prices_this_week }}</span><span class="stat-label">{% blocktranslate count counter=prices_this_week %}shu hafta kiritilgan narx{% plural %}shu hafta kiritilgan narx{% endblocktranslate %}</span></div>
+</div>
+
+<div class="grid grid-2">
+  <section class="card">
+    <h2>{% translate "Navbatdagi postlar" %}</h2>
+    {% if upcoming_posts %}
+    <div class="table-wrap"><table>
+      <tbody>
+      {% for post in upcoming_posts %}
+        <tr>
+          <td class="num">{{ post.scheduled_at|date:"d.m H:i" }}</td>
+          <td><a href="{% url 'posts:post_update' post.pk %}">{{ post.text|truncatechars:60 }}</a></td>
+          <td><span class="badge">{{ post.rubric }}</span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}<p class="empty">{% translate "Rejalashtirilgan postlar yo'q." %}</p>{% endif %}
+  </section>
+
+  <section class="card">
+    <h2>{% translate "Xato bilan tugagan postlar" %}</h2>
+    {% if failed_posts %}
+    <div class="table-wrap"><table>
+      <tbody>
+      {% for post in failed_posts %}
+        <tr>
+          <td><a href="{% url 'posts:post_update' post.pk %}">{{ post.text|truncatechars:50 }}</a><div class="small" style="color:var(--danger)">{{ post.error_message|truncatechars:120 }}</div></td>
+          <td class="num small muted">{{ post.updated_at|date:"d.m H:i" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}<p class="empty">{% translate "Xatolar yo'q." %}</p>{% endif %}
+  </section>
+</div>
+
+<section class="card">
+  <h2>{% blocktranslate with percent=alert_percent %}Narxi bir haftada {{ percent }}% dan ko'p o'zgargan mahsulotlar{% endblocktranslate %}</h2>
+  {% if alerts %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>{% translate "Mahsulot" %}</th><th>{% translate "Do'kon" %}</th><th class="num">{% translate "Hafta oldin" %}</th><th class="num">{% translate "Hozir" %}</th><th class="num">{% translate "O'zgarish" %}</th></tr></thead>
+    <tbody>
+    {% for alert in alerts %}
+      <tr>
+        <td><a href="{% url 'catalog:product_detail' alert.product.pk %}">{{ alert.product.local_name }}</a></td>
+        <td>{{ alert.store }}</td>
+        <td class="num">{{ alert.old_value|som }}</td>
+        <td class="num">{{ alert.new_value|som }}</td>
+        <td class="num {% if alert.change_percent > 0 %}up{% else %}down{% endif %}">{% if alert.change_percent > 0 %}+{% endif %}{{ alert.change_percent }}%</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}<p class="empty">{% translate "Keskin narx o'zgarishlari yo'q." %}</p>{% endif %}
+</section>
+{% endblock %}

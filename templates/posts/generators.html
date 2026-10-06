@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Post generatorlari" %}{% endblock %}
+{% block heading %}{% translate "Post generatorlari" %}{% endblock %}
+{% block content %}
+<p class="muted">{% translate "Generator ma'lumotlardan qoralama post yaratadi. Keyin matnni tahrirlab, rejalashtirasiz. Obzor, maslahat va yangilik postlari qo'lda yoziladi." %}</p>
+<div class="grid grid-2">
+  {% with form=forms.promotion %}
+  <section class="card" id="promotion">
+    <h2>🔥 {% translate "Aksiyalar posti" %}</h2>
+    <p class="small muted">{% translate "Tanlangan shahar yoki do'kondagi faol aksiyalar." %}</p>
+    <form method="post">{% csrf_token %}<input type="hidden" name="kind" value="promotion">
+      {% include "includes/form_fields.html" %}
+      <button class="btn btn-primary" type="submit">{% translate "Qoralama yaratish" %}</button>
+    </form>
+  </section>
+  {% endwith %}
+  {% with form=forms.price %}
+  <section class="card" id="price">
+    <h2>💰 {% translate "Mahsulot narxlari posti" %}</h2>
+    <p class="small muted">{% translate "Bitta mahsulotning barcha do'konlardagi narxi, arzonidan boshlab." %}</p>
+    <form method="post">{% csrf_token %}<input type="hidden" name="kind" value="price">
+      {% include "includes/form_fields.html" %}
+      <button class="btn btn-primary" type="submit">{% translate "Qoralama yaratish" %}</button>
+    </form>
+  </section>
+  {% endwith %}
+  {% with form=forms.basket %}
+  <section class="card" id="basket">
+    <h2>🧺 {% translate "Savat solishtirish posti" %}</h2>
+    <p class="small muted">{% translate "Savat qaysi do'konda eng arzon?" %}</p>
+    <form method="post">{% csrf_token %}<input type="hidden" name="kind" value="basket">
+      {% include "includes/form_fields.html" %}
+      <button class="btn btn-primary" type="submit">{% translate "Qoralama yaratish" %}</button>
+    </form>
+  </section>
+  {% endwith %}
+  {% with form=forms.new_store %}
+  <section class="card" id="new_store">
+    <h2>🎉 {% translate "Yangi do'kon posti" %}</h2>
+    <p class="small muted">{% translate "“Yangi” deb belgilangan do'kon haqida e'lon." %}</p>
+    <form method="post">{% csrf_token %}<input type="hidden" name="kind" value="new_store">
+      {% include "includes/form_fields.html" %}
+      <button class="btn btn-primary" type="submit">{% translate "Qoralama yaratish" %}</button>
+    </form>
+  </section>
+  {% endwith %}
+</div>
+{% endblock %}

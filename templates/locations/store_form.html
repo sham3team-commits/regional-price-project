@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block heading %}{% if object %}{% translate "Do'konni tahrirlash" %}{% else %}{% translate "Yangi do'kon" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:720px">
+  <form method="post">
+    {% csrf_token %}
+    {% include "includes/form_fields.html" %}
+    <div class="btn-row">
+      <button type="submit" class="btn btn-primary">{% translate "Saqlash" %}</button>
+      <a class="btn" href="{% url 'locations:store_list' %}">{% translate "Bekor qilish" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

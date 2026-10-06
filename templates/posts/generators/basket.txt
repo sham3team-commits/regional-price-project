@@ -1,0 +1,10 @@
+{% load i18n formatting %}{% autoescape off %}🧺 **{% if city %}{% blocktranslate with basket=basket.name city=city|local_name %}“{{ basket }}” {{ city }}da qayerda arzon?{% endblocktranslate %}{% else %}{% blocktranslate with basket=basket.name %}“{{ basket }}” qayerda arzon?{% endblocktranslate %}{% endif %}**
+
+{% translate "Savatda:" %}
+{% for item in items %}• {{ item.product|local_name }} — {{ item.quantity|qty }} {{ item.product.get_unit_display }}
+{% endfor %}
+{% translate "Do'konlar reytingi:" %}
+{% for result in results|slice:":10" %}{% if forloop.first and result.is_complete %}🥇{% else %}{{ forloop.counter }}.{% endif %} {{ result.store.name }}{% if not city %} ({{ result.store.city|local_name }}){% endif %} — **{{ result.total|som }} {% translate "so'm" %}**{% if not result.is_complete %} ⚠️ {% blocktranslate count counter=result.missing|length %}{{ counter }} ta mahsulot yo'q{% plural %}{{ counter }} ta mahsulot yo'q{% endblocktranslate %}{% endif %}
+{% endfor %}
+{% with best=results.0 %}{% if best.is_complete %}✅ {% blocktranslate with store=best.store.name total=best.total|som %}Eng arzon savat: {{ store }} — {{ total }} so'm{% endblocktranslate %}{% endif %}{% endwith %}
+{% endautoescape %}

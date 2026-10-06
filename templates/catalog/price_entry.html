@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load i18n formatting %}
+{% block title %}{% translate "Narx kiritish" %}{% endblock %}
+{% block heading %}{% translate "Narx kiritish" %}{% endblock %}
+{% block content %}
+<div class="grid grid-form price-entry">
+  <section class="card">
+    <form method="post" id="price-form" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<ul class="errorlist nonfield">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      <div class="field">{{ form.product.as_field_group }}</div>
+      <div class="field">{{ form.store.as_field_group }}</div>
+      <div class="form-row">
+        <div class="field big">{{ form.price.as_field_group }}</div>
+        <div class="field">{{ form.recorded_on.as_field_group }}</div>
+      </div>
+      <div class="last-price muted" id="last-price" data-url="{% url 'catalog:price_last' %}"></div>
+      <div class="field checkbox-field">{{ form.is_promo.as_field_group }}</div>
+      <div class="promo-fields" id="promo-fields" {% if not form.is_promo.value %}hidden{% endif %}>
+        <div class="form-row">
+          <div class="field">{{ form.old_price.as_field_group }}</div>
+          <div class="field">{{ form.promo_starts.as_field_group }}</div>
+          <div class="field">{{ form.promo_ends.as_field_group }}</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">{% translate "Saqlash va keyingisi" %} ↵</button>
+      <p class="small muted" style="margin-top:.6rem">{% translate "Do'kon keyingi yozuv uchun saqlanib qoladi. Enter — saqlash." %}</p>
+    </form>
+  </section>
+  <section class="card">
+    <h2>{% translate "Bugun kiritilganlar" %} <span class="muted small">({{ today_entries|length }})</span></h2>
+    {% if today_entries %}
+    <div class="table-wrap"><table>
+      <thead><tr><th>{% translate "Vaqt" %}</th><th>{% translate "Mahsulot" %}</th><th>{% translate "Do'kon" %}</th><th class="num">{% translate "Narx" %}</th></tr></thead>
+      <tbody>
+      {% for entry in today_entries %}
+        <tr>
+          <td class="num muted">{{ entry.created_at|date:"H:i" }}</td>
+          <td><a href="{% url 'catalog:product_detail' entry.product_id %}">{{ entry.product.local_name }}</a></td>
+          <td>{{ entry.store.name }} <span class="muted small">{{ entry.store.city }}</span></td>
+          <td class="num">{{ entry.price|som }}{% if entry.is_promo %} <span class="badge badge-promo">%</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}<p class="empty">{% translate "Bugun hali narx kiritilmagan." %}</p>{% endif %}
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(() => {
+  const product = document.getElementById("id_product");
+  const store = document.getElementById("id_store");
+  const price = document.getElementById("id_price");
+  const isPromo = document.getElementById("id_is_promo");
+  const promoFields = document.getElementById("promo-fields");
+  const lastBox = document.getElementById("last-price");
+  const som = (v) => v.toLocaleString("ru-RU").replace(/ /g, " ");
+  const messages = {
+    previous: "{% filter escapejs %}{% translate "Oldingi narx" %}{% endfilter %}",
+    none: "{% filter escapejs %}{% translate "Bu do'konda oldingi narx yo'q." %}{% endfilter %}",
+    currency: "{% filter escapejs %}{% translate "so'm" %}{% endfilter %}",
+  };
+  let last = null;
+
+  function renderLast() {
+    if (!last) { lastBox.textContent = ""; return; }
+    if (!last.found) { lastBox.textContent = messages.none; return; }
+    let text = `${messages.previous}: ${som(last.price)} ${messages.currency} (${last.date})`;
+    const typed = parseInt(price.value, 10);
+    if (typed > 0) {
+      const change = Math.round((typed - last.price) * 1000 / last.price) / 10;
+      text += `, ${change > 0 ? "+" : ""}${change}%`;
+    }
+    lastBox.textContent = text;
+  }
+
+  async function loadLast() {
+    last = null;
+    if (product.value && store.value) {
+      const params = new URLSearchParams({ product: product.value, store: store.value });
+      const response = await fetch(`${lastBox.dataset.url}?${params}`);
+      if (response.ok) last = await response.json();
+    }
+    renderLast();
+  }
+
+  product.addEventListener("change", () => {
+    loadLast();
+    // Jump straight to the price: the operator types product -> Enter -> price -> Enter.
+    if (product.value) setTimeout(() => price.focus(), 0);
+  });
+  store.addEventListener("change", loadLast);
+  price.addEventListener("input", renderLast);
+  isPromo.addEventListener("change", () => { promoFields.hidden = !isPromo.checked; });
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!product.value) product.tomselect?.focus(); else price.focus();
+    loadLast();
+  });
+})();
+</script>
+{% endblock %}

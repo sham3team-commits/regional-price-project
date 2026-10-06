@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n formatting %}
+{% block title %}{{ product.local_name }}{% endblock %}
+{% block heading %}{{ product.local_name }}{% if product.brand %} <span class="muted">{{ product.brand }}</span>{% endif %}{% endblock %}
+{% block actions %}
+  <a class="btn" href="{% url 'catalog:product_update' product.pk %}">{% translate "Tahrirlash" %}</a>
+  <a class="btn" href="{% url 'catalog:price_entry' %}?product={{ product.pk }}">+ {% translate "Narx" %}</a>
+{% endblock %}
+{% block content %}
+<div class="grid grid-form">
+  <section class="card">
+    <h2>{% translate "Hozirgi narxlar" %} <span class="muted small">/ 1 {{ product.get_unit_display }}</span></h2>
+    {% if current %}
+    <div class="table-wrap"><table>
+      <thead><tr><th>{% translate "Do'kon" %}</th><th>{% translate "Shahar" %}</th><th class="num">{% translate "Narx" %}</th><th class="num">{% translate "Sana" %}</th></tr></thead>
+      <tbody>
+      {% for row in current %}
+        <tr class="{% if forloop.first %}best{% endif %}">
+          <td>{% if forloop.first %}🥇 {% endif %}{{ row.store.name }}</td>
+          <td>{{ row.store.city }}</td>
+          <td class="num"><strong>{{ row.value|som }}</strong>{% if row.on_promo %} <span class="old-price">{{ row.entry.old_price|som }}</span> <span class="badge badge-promo">{% translate "aksiya" %}</span>{% endif %}</td>
+          <td class="num muted">{{ row.entry.recorded_on|date:"d.m.Y" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}<p class="empty">{% translate "Hali narx kiritilmagan." %}</p>{% endif %}
+  </section>
+  <section class="card">
+    <h2>{% translate "Ma'lumot" %}</h2>
+    {% if product.photo %}<img src="{{ product.photo.url }}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:.75rem">{% endif %}
+    <p><span class="muted">ID:</span> {{ product.pk }} · <span class="muted">{% translate "Kategoriya" %}:</span> {{ product.category }} · <span class="muted">{% translate "Birlik" %}:</span> {{ product.get_unit_display }}</p>
+    <p><span class="muted">UZ:</span> {{ product.name }}{% if product.name_ru %} · <span class="muted">RU:</span> {{ product.name_ru }}{% endif %}</p>
+    {% if product.description %}<p>{{ product.description|linebreaksbr }}</p>{% endif %}
+  </section>
+</div>
+
+<section class="card">
+  <h2>{% translate "Narxlar tarixi" %}</h2>
+  {% if chart.labels %}<div style="position:relative;height:320px"><canvas id="price-chart"></canvas></div>{% else %}<p class="empty">{% translate "Grafik uchun ma'lumot yo'q." %}</p>{% endif %}
+</section>
+
+<section class="card">
+  <h2>{% translate "Barcha yozuvlar" %} <span class="muted small">({% translate "oxirgi 100 ta" %})</span></h2>
+  {% if history %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>{% translate "Sana" %}</th><th>{% translate "Do'kon" %}</th><th class="num">{% translate "Narx" %}</th><th>{% translate "Aksiya" %}</th><th class="num">{% translate "Kiritilgan" %}</th></tr></thead>
+    <tbody>
+    {% for entry in history %}
+      <tr>
+        <td class="num">{{ entry.recorded_on|date:"d.m.Y" }}</td>
+        <td>{{ entry.store }}</td>
+        <td class="num">{{ entry.price|som }}{% if entry.old_price %} <span class="old-price">{{ entry.old_price|som }}</span>{% endif %}</td>
+        <td>{% if entry.is_promo %}<span class="badge badge-promo">{{ entry.promo_starts|date:"d.m"|default:"…" }} – {{ entry.promo_ends|date:"d.m"|default:"…" }}</span>{% endif %}</td>
+        <td class="num small muted">{{ entry.created_at|date:"d.m H:i" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% endif %}
+</section>
+{{ chart|json_script:"chart-data" }}
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.js"></script>
+<script>
+(() => {
+  const canvas = document.getElementById("price-chart");
+  if (!canvas) return;
+  const data = JSON.parse(document.getElementById("chart-data").textContent);
+  const palette = ["#0f7a4a", "#2481cc", "#c2410c", "#7c3aed", "#b45309", "#0e7490", "#be185d", "#4d7c0f", "#475569", "#a21caf"];
+  data.datasets.forEach((ds, i) => Object.assign(ds, {
+    borderColor: palette[i % palette.length], backgroundColor: palette[i % palette.length],
+    spanGaps: true, tension: 0, pointRadius: 3, borderWidth: 2,
+  }));
+  const currency = "{% filter escapejs %}{% translate "so'm" %}{% endfilter %}";
+  const som = (v) => v == null ? "—" : v.toLocaleString("ru-RU").replace(/ /g, " ");
+  new Chart(canvas, {
+    type: "line",
+    data,
+    options: {
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      scales: { y: { ticks: { callback: som } } },
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12, font: { family: "Golos Text" } } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${som(ctx.parsed.y)} ${currency}` } },
+      },
+    },
+  });
+})();
+</script>
+{% endblock %}

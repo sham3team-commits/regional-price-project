@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Do'konlar" %}{% endblock %}
+{% block heading %}{% translate "Do'konlar" %}{% endblock %}
+{% block actions %}<a class="btn btn-primary" href="{% url 'locations:store_create' %}">+ {% translate "Yangi do'kon" %}</a>{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="tabs">
+    <a href="{% url 'locations:store_list' %}" class="{% if not selected_city %}active{% endif %}">{% translate "Hammasi" %}</a>
+    {% for city in cities %}<a href="?city={{ city.pk }}" class="{% if selected_city == city.pk|stringformat:'s' %}active{% endif %}">{{ city }}</a>{% endfor %}
+  </div>
+  {% if object_list %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th>{% translate "Shahar" %}</th><th>{% translate "Manzil" %}</th><th>{% translate "Ochilgan" %}</th><th>{% translate "Holat" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for store in object_list %}
+      <tr>
+        <td><strong>{{ store.name }}</strong></td>
+        <td>{{ store.city }}</td>
+        <td>{{ store.address }}{% if store.map_url %} · <a href="{{ store.map_url }}" target="_blank" rel="noopener">{% translate "xarita" %}</a>{% endif %}</td>
+        <td class="num">{{ store.opened_on|date:"d.m.Y"|default:"—" }}</td>
+        <td>
+          {% if store.is_active %}<span class="badge badge-ok">{% translate "faol" %}</span>{% else %}<span class="badge badge-closed">{% translate "yopilgan" %}</span>{% endif %}
+          {% if store.is_new %}<span class="badge badge-new">{% translate "yangi" %}</span>{% endif %}
+        </td>
+        <td class="num"><a class="btn btn-sm" href="{% url 'locations:store_update' store.pk %}">{% translate "Tahrirlash" %}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% include "includes/pagination.html" %}
+  {% else %}<p class="empty">{% translate "Do'kon topilmadi." %}</p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load i18n formatting %}{% autoescape off %}🎉 **{% translate "Yangi do'kon ochildi!" %}**
+
+🏪 **{{ store.name }}**
+📍 {{ store.city|local_name }}, {{ store.address }}
+{% if store.opened_on %}📅 {% blocktranslate with date=store.opened_on|date:"d.m.Y" %}Ochilgan sana: {{ date }}{% endblocktranslate %}
+{% endif %}{% if store.map_url %}🗺 {{ store.map_url }}
+{% endif %}
+{% translate "Yangi do'kondagi narxlarni tez orada e'lon qilamiz!" %}
+{% endautoescape %}

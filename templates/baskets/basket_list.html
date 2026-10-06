@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Savatlar" %}{% endblock %}
+{% block heading %}{% translate "Savatlar" %}{% endblock %}
+{% block actions %}<a class="btn btn-primary" href="{% url 'baskets:basket_create' %}">+ {% translate "Yangi savat" %}</a>{% endblock %}
+{% block content %}
+<div class="card">
+  {% if object_list %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th>{% translate "Tavsif" %}</th><th class="num">{% translate "Mahsulotlar" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for basket in object_list %}
+      <tr>
+        <td><a href="{% url 'baskets:basket_compare' basket.pk %}"><strong>{{ basket.name }}</strong></a></td>
+        <td class="muted">{{ basket.description|truncatechars:80 }}</td>
+        <td class="num">{{ basket.item_count }}</td>
+        <td class="num">
+          <a class="btn btn-sm btn-primary" href="{% url 'baskets:basket_compare' basket.pk %}">{% translate "Solishtirish" %}</a>
+          <a class="btn btn-sm" href="{% url 'baskets:basket_update' basket.pk %}">{% translate "Tahrirlash" %}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}<p class="empty">{% translate "Hali savat yo'q." %}</p>{% endif %}
+</div>
+{% endblock %}

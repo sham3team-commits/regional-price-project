@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n formatting %}
+{% block title %}{{ basket.name }}{% endblock %}
+{% block heading %}{{ basket.name }}{% endblock %}
+{% block actions %}
+  <a class="btn" href="{% url 'baskets:basket_update' basket.pk %}">{% translate "Tahrirlash" %}</a>
+  <a class="btn btn-primary" href="{% url 'posts:generators' %}?basket={{ basket.pk }}{% if city %}&city={{ city.pk }}{% endif %}#basket">{% translate "Post yaratish" %}</a>
+{% endblock %}
+{% block content %}
+<div class="grid grid-form">
+  <section class="card">
+    <form method="get" class="filters">
+      {{ filter_form.city }}
+      <button class="btn" type="submit">{% translate "Ko'rsatish" %}</button>
+    </form>
+    {% if results %}
+    <div class="table-wrap"><table>
+      <thead><tr><th class="rank">#</th><th>{% translate "Do'kon" %}</th><th class="num">{% translate "Jami" %}</th><th>{% translate "Holat" %}</th></tr></thead>
+      <tbody>
+      {% for result in results %}
+        <tr class="{% if forloop.first and result.is_complete %}best{% elif not result.is_complete %}incomplete{% endif %}">
+          <td class="rank">{{ forloop.counter }}</td>
+          <td>
+            <strong>{{ result.store.name }}</strong> <span class="muted small">{{ result.store.city }}</span>
+            <details>
+              <summary>{% translate "Tafsilotlar" %}</summary>
+              <table>
+                {% for line in result.lines %}
+                <tr><td>{{ line.product.local_name }}</td><td class="num">{{ line.quantity|qty }} × {{ line.unit_price|som }}{% if line.on_promo %} <span class="badge badge-promo">%</span>{% endif %}</td><td class="num">{{ line.cost|som }}</td></tr>
+                {% endfor %}
+              </table>
+            </details>
+          </td>
+          <td class="num"><strong>{{ result.total|som }}</strong> {% translate "so'm" %}</td>
+          <td>
+            {% if result.is_complete %}<span class="badge badge-ok">{% translate "to'liq" %}</span>
+            {% else %}
+              <span class="badge badge-missing">{% blocktranslate count counter=result.missing|length %}{{ counter }} ta yo'q{% plural %}{{ counter }} ta yo'q{% endblocktranslate %}</span>
+              <div class="small muted">{% for product in result.missing %}{{ product.local_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    <p class="small muted">{% translate "Narxi yo'q mahsulotlar jamiga qo'shilmaydi. To'liq savatli do'konlar birinchi ko'rsatiladi." %}</p>
+    {% else %}<p class="empty">{% translate "Bu savat uchun narxlar topilmadi." %}</p>{% endif %}
+  </section>
+  <section class="card">
+    <h2>{% translate "Savat tarkibi" %}</h2>
+    {% if basket.description %}<p class="muted">{{ basket.description }}</p>{% endif %}
+    <table>
+      {% for item in items %}<tr><td><a href="{% url 'catalog:product_detail' item.product_id %}">{{ item.product.local_name }}</a></td><td class="num">{{ item.quantity|qty }} {{ item.product.get_unit_display }}</td></tr>{% endfor %}
+    </table>
+  </section>
+</div>
+{% endblock %}

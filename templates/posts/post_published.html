@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Post" %} #{{ post.pk }}{% endblock %}
+{% block heading %}{% translate "Post" %} #{{ post.pk }} <span class="badge badge-{{ post.status }}">{{ post.get_status_display }}</span>{% endblock %}
+{% block content %}
+<div class="grid grid-form">
+  <section class="card">
+    <h2>{% translate "Ma'lumot" %}</h2>
+    <table>
+      <tr><th>{% translate "Rubrika" %}</th><td>{{ post.rubric }}</td></tr>
+      <tr><th>{% translate "Til" %}</th><td>{{ post.get_language_display }}</td></tr>
+      <tr><th>{% translate "Rejalashtirilgan" %}</th><td>{{ post.scheduled_at|date:"d.m.Y H:i"|default:"—" }}</td></tr>
+      <tr><th>{% translate "Chop etilgan" %}</th><td>{{ post.published_at|date:"d.m.Y H:i"|default:"—" }}</td></tr>
+      <tr><th>{% translate "Telegram xabar ID" %}</th><td>{{ post.telegram_message_id|default:"—" }}</td></tr>
+      <tr><th>{% translate "Muhokama guruhidagi nusxa" %}</th><td>{{ post.discussion_message_id|default:"—" }}{% if post.comments_closed %} · <span class="badge badge-closed">{% translate "izohlar yopilgan" %}</span>{% endif %}</td></tr>
+    </table>
+    {% if post.status == "published" %}
+    <h2 style="margin-top:1.25rem">{% translate "Izohlar" %}</h2>
+    {% if post.comments_enabled %}
+      <form method="post">
+        {% csrf_token %}
+        {% if comments_form.errors %}{{ comments_form.comments_enabled.errors }}{% endif %}
+        <p>{% translate "Izohlar yoqilgan. O'chirilsa, worker muhokama guruhidagi nusxani o'chiradi va izohlar butunlay yopiladi. Bu amalni qaytarib bo'lmaydi." %}</p>
+        <button type="submit" class="btn btn-danger" onclick="return confirm(this.dataset.confirm)" data-confirm="{% translate 'Izohlarni butunlay yopishni tasdiqlaysizmi?' %}">{% translate "Izohlarni o'chirish" %}</button>
+      </form>
+    {% else %}
+      <p class="muted">{% if post.comments_closed %}{% translate "Izohlar yopilgan." %}{% else %}{% translate "Izohlar o'chirilgan; worker muhokama guruhidagi nusxani tez orada o'chiradi." %}{% endif %}</p>
+    {% endif %}
+    {% else %}
+      <p class="muted">{% translate "Post hozir yuborilmoqda. Sahifani birozdan keyin yangilang." %}</p>
+    {% endif %}
+  </section>
+  <section class="card">
+    <h2>{% translate "Kanaldagi ko'rinishi" %}</h2>
+    {% include "includes/tg_preview.html" with photo=post.photo scheduled_at=post.published_at comments_enabled=post.comments_enabled %}
+  </section>
+</div>
+{% endblock %}

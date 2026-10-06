@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Postlar" %}{% endblock %}
+{% block heading %}{% translate "Postlar" %}{% endblock %}
+{% block actions %}
+  <a class="btn" href="{% url 'posts:generators' %}">{% translate "Generatorlar" %}</a>
+  <a class="btn btn-primary" href="{% url 'posts:post_create' %}">+ {% translate "Yangi post" %}</a>
+{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="tabs">
+    <a href="{% url 'posts:post_list' %}" class="{% if not current_status %}active{% endif %}">{% translate "Hammasi" %}</a>
+    {% for value, label in statuses %}<a href="?status={{ value }}" class="{% if current_status == value %}active{% endif %}">{{ label }}</a>{% endfor %}
+  </div>
+  {% if object_list %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>{% translate "Matn" %}</th><th>{% translate "Rubrika" %}</th><th>{% translate "Holat" %}</th><th class="num">{% translate "Vaqt" %}</th><th>{% translate "Izohlar" %}</th></tr></thead>
+    <tbody>
+    {% for post in object_list %}
+      <tr>
+        <td class="num muted">{{ post.pk }}</td>
+        <td><a href="{% url 'posts:post_update' post.pk %}">{{ post.text|truncatechars:70 }}</a>{% if post.error_message %}<div class="small" style="color:var(--danger)">{{ post.error_message|truncatechars:100 }}</div>{% endif %}</td>
+        <td>{{ post.rubric }}</td>
+        <td><span class="badge badge-{{ post.status }}">{{ post.get_status_display }}</span></td>
+        <td class="num">{% if post.published_at %}{{ post.published_at|date:"d.m H:i" }}{% else %}{{ post.scheduled_at|date:"d.m H:i"|default:"—" }}{% endif %}</td>
+        <td>{% if post.comments_enabled %}💬{% else %}<span class="muted">—</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% include "includes/pagination.html" %}
+  {% else %}<p class="empty">{% translate "Postlar yo'q." %}</p>{% endif %}
+</div>
+{% endblock %}
